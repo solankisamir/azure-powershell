@@ -15,6 +15,7 @@
 namespace Microsoft.Azure.Commands.ApiManagement.Models
 {
     using Microsoft.Azure.Management.ApiManagement.Models;
+    using Helpers;
     using System;
     using System.Linq;
 
@@ -24,28 +25,34 @@ namespace Microsoft.Azure.Commands.ApiManagement.Models
         {
         }
 
-        internal PsApiManagementRegion(AdditionalRegion regionResource)
+        internal PsApiManagementRegion(AdditionalLocation additionalLocation)
             : this()
         {
-            if (regionResource == null)
+            if (additionalLocation == null)
             {
                 throw new ArgumentNullException("regionResource");
             }
 
-            Location = regionResource.Location;
-            Sku = ApiManagementClient.Mapper.Map<SkuType, PsApiManagementSku>(regionResource.SkuType);
-            Capacity = regionResource.SkuUnitCount ?? 1;
-            StaticIPs = regionResource.StaticIPs.ToArray();
+            Location = additionalLocation.Location;
+            Sku = Mappers.MapSku(additionalLocation.Sku.Name);
+            Capacity = additionalLocation.Sku.Capacity ?? 1;
+            PublicIPAddresses = additionalLocation.PublicIPAddresses.ToArray();
+            PrivateIPAddresses = additionalLocation.PublicIPAddresses.ToArray();
 
-            if (regionResource.VirtualNetworkConfiguration != null)
+            if (additionalLocation.VirtualNetworkConfiguration != null)
             {
-                VirtualNetwork = new PsApiManagementVirtualNetwork(regionResource.VirtualNetworkConfiguration);
+                VirtualNetwork = new PsApiManagementVirtualNetwork(additionalLocation.VirtualNetworkConfiguration);
             }
         }
 
         public PsApiManagementVirtualNetwork VirtualNetwork { get; set; }
 
+        [Obsolete("This property is no longer populated and will be removed in a future release")]
         public string[] StaticIPs { get; private set; }
+
+        public string[] PublicIPAddresses { get; private set; }
+
+        public string[] PrivateIPAddresses { get; private set; }
 
         public int Capacity { get; set; }
 

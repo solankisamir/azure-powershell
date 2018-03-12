@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.dll-Help.xml
 Module Name: AzureRM.ApiManagement
 ms.assetid: 7BCEB0EF-1A09-4CED-9F34-CE3AB03181A7
@@ -85,7 +85,7 @@ If you specify this parameter the cmdlet returns the API-scope policy.
 ```yaml
 Type: String
 Parameter Sets: GetApiLevel, GetOperationLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -100,7 +100,7 @@ Specifies an instance of **PsApiManagementContext**.
 ```yaml
 Type: PsApiManagementContext
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -130,7 +130,7 @@ ps_force
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -146,7 +146,7 @@ The default value for this parameter is "application/vnd.ms-azure-apim.policy+xm
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -162,7 +162,7 @@ If you specify this parameter with *ApiId* the cmdlet returns operation-scope po
 ```yaml
 Type: String
 Parameter Sets: GetOperationLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -178,7 +178,7 @@ If you specify this parameter the cmdlet returns the product-scope policy.
 ```yaml
 Type: String
 Parameter Sets: GetProductLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -194,7 +194,7 @@ If you do not specify this parameter the result is pipelined as a sting.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

@@ -1,4 +1,4 @@
-﻿---
+---
 Module Name: AzureRM.ApiManagement
 Module Guid: f875725d-8ce4-423f-a6af-ea880bc63f13
 Download Help Link: None
@@ -35,6 +35,15 @@ Gets a list or a particular API Management Service description.
 ### [Get-AzureRmApiManagementApi](Get-AzureRmApiManagementApi.md)
 Gets an API.
 
+### [Get-AzureRmApiManagementApiRelease](Get-AzureRmApiManagementApiRelease.md)
+Get the API Release.
+
+### [Get-AzureRmApiManagementApiRevision](Get-AzureRmApiManagementApiRevision.md)
+Gets details of all the API Revisions of an API
+
+### [Get-AzureRmApiManagementApiVersionSet](Get-AzureRmApiManagementApiVersionSet.md)
+Get the details of the API Version Sets
+
 ### [Get-AzureRmApiManagementAuthorizationServer](Get-AzureRmApiManagementAuthorizationServer.md)
 Gets an API Management authorization server.
 
@@ -42,7 +51,7 @@ Gets an API Management authorization server.
 Get the details of the Backend.
 
 ### [Get-AzureRmApiManagementCertificate](Get-AzureRmApiManagementCertificate.md)
-Gets API Management certificates.
+Gets API Management certificates configured for Mutual Authentication with Backend in the service.
 
 ### [Get-AzureRmApiManagementGroup](Get-AzureRmApiManagementGroup.md)
 Gets all or specific API management groups.
@@ -66,7 +75,7 @@ Gets the specified scope policy.
 Gets a list or a particular product.
 
 ### [Get-AzureRmApiManagementProperty](Get-AzureRmApiManagementProperty.md)
-{{Manually Enter Get-AzureRmApiManagementProperty Description Here}}
+
 
 ### [Get-AzureRmApiManagementSsoToken](Get-AzureRmApiManagementSsoToken.md)
 Gets a link with an SSO token to a deployed management portal of an API Management service.
@@ -101,6 +110,15 @@ Creates an API Management deployment.
 ### [New-AzureRmApiManagementApi](New-AzureRmApiManagementApi.md)
 Creates an API.
 
+### [New-AzureRmApiManagementApiRelease](New-AzureRmApiManagementApiRelease.md)
+Creates an API Release of an API Revision
+
+### [New-AzureRmApiManagementApiRevision](New-AzureRmApiManagementApiRevision.md)
+Creates a new Revision of an Existing API.
+
+### [New-AzureRmApiManagementApiVersionSet](New-AzureRmApiManagementApiVersionSet.md)
+Creates an API Version Set.
+
 ### [New-AzureRmApiManagementAuthorizationServer](New-AzureRmApiManagementAuthorizationServer.md)
 Creates an authorization server.
 
@@ -118,6 +136,9 @@ Creates an API Management certificate to be used during Authentication with Back
 
 ### [New-AzureRmApiManagementContext](New-AzureRmApiManagementContext.md)
 Creates an instance of PsAzureApiManagementContext.
+
+### [New-AzureRmApiManagementCustomHostnameConfiguration](New-AzureRmApiManagementCustomHostnameConfiguration.md)
+Creates an instance of `PsApiManagementCustomHostNameConfiguration`.
 
 ### [New-AzureRmApiManagementGroup](New-AzureRmApiManagementGroup.md)
 Creates an API management group.
@@ -149,6 +170,9 @@ Creates an instance of PsApiManagementRegion.
 ### [New-AzureRmApiManagementSubscription](New-AzureRmApiManagementSubscription.md)
 Creates a subscription.
 
+### [New-AzureRmApiManagementSystemCertificate](New-AzureRmApiManagementSystemCertificate.md)
+Creates an instance of `PsApiManagementSystemCertificate`. The certificate can be issued by private CA's and will be installed on the API Management service into `CertificateAuthority` or `Root` store.
+
 ### [New-AzureRmApiManagementUser](New-AzureRmApiManagementUser.md)
 Registers a new user.
 
@@ -166,6 +190,12 @@ Removes an API.
 
 ### [Remove-AzureRmApiManagementApiFromProduct](Remove-AzureRmApiManagementApiFromProduct.md)
 Removes an API from a product.
+
+### [Remove-AzureRmApiManagementApiRelease](Remove-AzureRmApiManagementApiRelease.md)
+Removes a particular API Release
+
+### [Remove-AzureRmApiManagementApiVersionSet](Remove-AzureRmApiManagementApiVersionSet.md)
+Removes a particular Api Version Set
 
 ### [Remove-AzureRmApiManagementAuthorizationServer](Remove-AzureRmApiManagementAuthorizationServer.md)
 Removes an authorization server.
@@ -221,8 +251,17 @@ Restores an API Management Service from the specified Azure storage blob.
 ### [Save-AzureRmApiManagementTenantGitConfiguration](Save-AzureRmApiManagementTenantGitConfiguration.md)
 Saves changes by creating a commit for current configuration.
 
+### [Set-AzureRmApiManagement](Set-AzureRmApiManagement.md)
+Updates an Azure Api Management service
+
 ### [Set-AzureRmApiManagementApi](Set-AzureRmApiManagementApi.md)
 Modifies an API.
+
+### [Set-AzureRmApiManagementApiRelease](Set-AzureRmApiManagementApiRelease.md)
+Updates a particular Api Release.
+
+### [Set-AzureRmApiManagementApiVersionSet](Set-AzureRmApiManagementApiVersionSet.md)
+Updates an API Version Set in the API Management Context.
 
 ### [Set-AzureRmApiManagementAuthorizationServer](Set-AzureRmApiManagementAuthorizationServer.md)
 Modifies an authorization server.
@@ -231,7 +270,7 @@ Modifies an authorization server.
 Updates a Backend.
 
 ### [Set-AzureRmApiManagementCertificate](Set-AzureRmApiManagementCertificate.md)
-Modifies an API Management certificate.
+Modifies an API Management certificate which is configured for mutual authentication with backend.
 
 ### [Set-AzureRmApiManagementGroup](Set-AzureRmApiManagementGroup.md)
 Configures an API management group.

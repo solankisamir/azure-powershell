@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.dll-Help.xml
 Module Name: AzureRM.ApiManagement
 ms.assetid: 6CD1C2B8-0416-4FF3-81B0-0C9E59AE6CF9
@@ -16,27 +16,28 @@ Sets the specified scope policy for API Management.
 ### SetTenantLevel (Default)
 ```
 Set-AzureRmApiManagementPolicy -Context <PsApiManagementContext> [-Format <String>] [-Policy <String>]
- [-PolicyFilePath <String>] [-PassThru] [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
+ [-PolicyFilePath <String>] [-PolicyUrl <String>] [-PassThru] [-DefaultProfile <IAzureContextContainer>]
+ [<CommonParameters>]
 ```
 
 ### SetProductLevel
 ```
 Set-AzureRmApiManagementPolicy -Context <PsApiManagementContext> [-Format <String>] -ProductId <String>
- [-Policy <String>] [-PolicyFilePath <String>] [-PassThru] [-DefaultProfile <IAzureContextContainer>]
- [<CommonParameters>]
+ [-Policy <String>] [-PolicyFilePath <String>] [-PolicyUrl <String>] [-PassThru]
+ [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
 ```
 
 ### SetApiLevel
 ```
 Set-AzureRmApiManagementPolicy -Context <PsApiManagementContext> [-Format <String>] -ApiId <String>
- [-Policy <String>] [-PolicyFilePath <String>] [-PassThru] [-DefaultProfile <IAzureContextContainer>]
- [<CommonParameters>]
+ [-Policy <String>] [-PolicyFilePath <String>] [-PolicyUrl <String>] [-PassThru]
+ [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
 ```
 
 ### SetOperationLevel
 ```
 Set-AzureRmApiManagementPolicy -Context <PsApiManagementContext> [-Format <String>] -ApiId <String>
- -OperationId <String> [-Policy <String>] [-PolicyFilePath <String>] [-PassThru]
+ -OperationId <String> [-Policy <String>] [-PolicyFilePath <String>] [-PolicyUrl <String>] [-PassThru]
  [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
 ```
 
@@ -46,7 +47,7 @@ The **Set-AzureRmApiManagementPolicy** cmdlet sets the specified scope policy fo
 ## EXAMPLES
 
 ### Example 1: Set the tenant level policy
-```
+```powershell
 PS C:\>$apimContext = New-AzureRmApiManagementContext -ResourceGroupName "Api-Default-WestUS" -ServiceName "contoso"
 PS C:\>Set-AzureRmApiManagementPolicy -Context $apimContext -PolicyFilePath "C:\contoso\policies\tenantpolicy.xml"
 ```
@@ -54,7 +55,7 @@ PS C:\>Set-AzureRmApiManagementPolicy -Context $apimContext -PolicyFilePath "C:\
 This command sets the tenant level policy from a file named tenantpolicy.xml.
 
 ### Example 2: Set a product-scope policy
-```
+```powershell
 PS C:\>$apimContext = New-AzureRmApiManagementContext -ResourceGroupName "Api-Default-WestUS" -ServiceName "contoso"
 PS C:\>Set-AzureRmApiManagementPolicy -Context $apimContext -ProductId "0123456789" -Policy $PolicyString
 ```
@@ -62,7 +63,7 @@ PS C:\>Set-AzureRmApiManagementPolicy -Context $apimContext -ProductId "01234567
 This command sets the product-scope policy for API Management.
 
 ### Example 3: Set API-scope policy
-```
+```powershell
 PS C:\>$apimContext = New-AzureRmApiManagementContext -ResourceGroupName "Api-Default-WestUS" -ServiceName "contoso"
 PS C:\>Get-AzureRmApiManagementPolicy -Context $apimContext -ApiId "9876543210" -Policy $PolicyString
 ```
@@ -70,7 +71,7 @@ PS C:\>Get-AzureRmApiManagementPolicy -Context $apimContext -ApiId "9876543210" 
 This command sets API-scope policy for API Management.
 
 ### Example 4: Set operation-scope policy
-```
+```powershell
 PS C:\>$apimContext = New-AzureRmApiManagementContext -ResourceGroupName "Api-Default-WestUS" -ServiceName "contoso"
 PS C:\>Set-AzureRmApiManagementPolicy -Context $apimContext -ApiId "9876543210" -OperationId "777" -Policy $PolicyString
 ```
@@ -86,7 +87,7 @@ If you specify this parameter, the cmdlet sets the API-scope policy.
 ```yaml
 Type: String
 Parameter Sets: SetApiLevel, SetOperationLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -101,7 +102,7 @@ Specifies the instance of **PsApiManagementContext**.
 ```yaml
 Type: PsApiManagementContext
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -132,7 +133,7 @@ The default value is "application/vnd.ms-azure-apim.policy+xml".
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -149,7 +150,7 @@ This parameters is required.
 ```yaml
 Type: String
 Parameter Sets: SetOperationLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -164,7 +165,7 @@ passthru
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -180,7 +181,7 @@ This parameter is required if the -*PolicyFilePath* is not specified.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -196,7 +197,22 @@ This parameter is required if the *Policy* parameter is not specified.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -PolicyUrl
+The Url where the Policy document is hosted. This parameter is required if -Policy or -PolicyFilePath is not specified.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named
@@ -212,7 +228,7 @@ If this parameter is specified, the cmdlet sets the product-scope policy.
 ```yaml
 Type: String
 Parameter Sets: SetProductLevel
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named

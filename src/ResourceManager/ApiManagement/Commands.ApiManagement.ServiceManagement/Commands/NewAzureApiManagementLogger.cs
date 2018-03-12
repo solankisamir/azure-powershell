@@ -14,13 +14,13 @@
 
 namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
 {
-    using Management.ApiManagement.SmapiModels;
+    using Management.ApiManagement.Models;
     using Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models;
     using System;
     using System.Collections.Generic;
     using System.Management.Automation;
 
-    [Cmdlet(VerbsCommon.New, Constants.ApiManagementLogger)]
+    [Cmdlet(VerbsCommon.New, Constants.ApiManagementLogger)]    
     [OutputType(typeof(PsApiManagementLogger))]
     public class NewAzureApiManagementLogger : AzureApiManagementCmdletBase
     {
@@ -46,10 +46,17 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
 
         [Parameter(
             ValueFromPipelineByPropertyName = true,
-            Mandatory = true,
-            HelpMessage = "EventHub Connection String with Send Policy Rights. This parameter is required.")]
+            Mandatory = false,
+            HelpMessage = "EventHub Connection String with Send Policy Rights. This parameter is optional.")]
         [ValidateNotNullOrEmpty]
         public String ConnectionString { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Instrumentation Key of the application Insights. This parameter is optional.")]
+        [ValidateNotNullOrEmpty]
+        public String InstrumentationKey { get; set; }
 
         [Parameter(
             ValueFromPipelineByPropertyName = true,
@@ -67,13 +74,31 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         {
             string loggerId = LoggerId ?? Guid.NewGuid().ToString("N");
 
+            string loggerType = string.Empty;
             var credentials = new Dictionary<string, string>();
-            credentials.Add("name", Name);
-            credentials.Add("connectionString", ConnectionString);
+            if (!string.IsNullOrEmpty(Name) || !string.IsNullOrEmpty(ConnectionString))
+            {
+                loggerType = LoggerType.AzureEventHub;
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    credentials.Add("name", Name);
+                }
+                credentials.Add("connectionString", ConnectionString);
+            }
+            else if (!string.IsNullOrEmpty(InstrumentationKey))
+            {
+                loggerType = LoggerType.ApplicationInsights;
+                credentials.Add("instrumentationKey", InstrumentationKey);
+            }
+            else
+            {
+                throw new ArgumentException("Unable to determine LoggerType. If setting up EventHub logger -ConnectionString should be" +
+                    "specified or if setting up Application Insights logger -InstrumentationKey should be specified.");
+            } 
 
             var logger = Client.LoggerCreate(
                 Context,
-                LoggerTypeContract.AzureEventHub,
+                loggerType,
                 loggerId,
                 Description,
                 credentials,
