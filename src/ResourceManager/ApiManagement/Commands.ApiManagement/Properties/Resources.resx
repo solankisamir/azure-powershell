@@ -141,6 +141,10 @@
     <value>Confirm</value>
     <comment>Process workflow</comment>
   </data>
+  <data name="UpdateApiManagementService" xml:space="preserve">
+    <value>Update an Api Management Service.</value>
+    <comment>Process workflow</comment>
+  </data>
   <data name="UpdateRegionDoesNotExistsMessage" xml:space="preserve">
     <value>Region with location '{0}' not found.</value>
     <comment>Process workflow</comment>

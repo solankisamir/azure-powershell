@@ -35,5 +35,7 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models
         public PsApiManagementBackendProxy Proxy { get; set; }
 
         public PsApiManagementBackendCredential Credentials { get; set; }
+
+        public PsApiManagementServiceFabric ServiceFabricCluster { get; set; }
     }
 }

@@ -16,7 +16,9 @@ namespace Microsoft.Azure.Commands.ApiManagement.Commands
 {
     using Microsoft.Azure.Commands.ApiManagement.Models;
     using ResourceManager.Common.ArgumentCompleters;
+    using ResourceManager.Common.Tags;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Management.Automation;
 
@@ -62,8 +64,8 @@ namespace Microsoft.Azure.Commands.ApiManagement.Commands
         [Parameter(
             ValueFromPipelineByPropertyName = true,
             Mandatory = false,
-            HelpMessage = "The tier of the Azure API Management service. Valid values are Developer, Standard and Premium . Default value is Developer")]
-        [ValidateSet("Developer", "Standard", "Premium"), PSDefaultValue(Value = "Developer")]
+            HelpMessage = "The tier of the Azure API Management service. Valid values are Developer, Basic, Standard and Premium . Default value is Developer")]
+        [ValidateSet("Developer", "Basic", "Standard", "Premium"), PSDefaultValue(Value = "Developer")]
         public PsApiManagementSku? Sku { get; set; }
 
         [Parameter(
@@ -102,25 +104,42 @@ namespace Microsoft.Azure.Commands.ApiManagement.Commands
             Mandatory = false,
             HelpMessage = "Additional deployment regions of Azure API Management.")]
         public PsApiManagementRegion[] AdditionalRegions { get; set; }
+        
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Custom hostname configurations. Default value is $null. Passing $null will set the default hostname.")]
+        public PsApiManagementCustomHostNameConfiguration[] CustomHostnameConfiguration { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Certificates issued by Internal CA to be installed on the service. Default value is $null.")]
+        public PsApiManagementSystemCertificate[] SystemCertificateConfiguration { get; set; }
+
+        [Parameter(Mandatory = false,
+            HelpMessage = "Generate and assign an Azure Active Directory Identity for this server for use with key management services like Azure KeyVault.")]
+        public SwitchParameter AssignIdentity { get; set; }
 
         public override void ExecuteCmdlet()
         {
-#pragma warning disable CS0618
-            ExecuteLongRunningCmdletWrap(
-                () => Client.BeginCreateApiManagementService(
+            var apiManagementResource = Client.CreateApiManagementService(
                     ResourceGroupName,
                     Name,
                     Location,
                     Organization,
                     AdminEmail,
+                    Tag,
                     Sku ?? PsApiManagementSku.Developer,
                     Capacity ?? 1,
                     VpnType,
-                    Tag,
                     VirtualNetwork,
-                    AdditionalRegions),
-                passThru: true);
-#pragma warning restore CS0618
+                    AdditionalRegions,
+                    CustomHostnameConfiguration,
+                    SystemCertificateConfiguration,
+                    AssignIdentity.IsPresent);
+
+            this.WriteObject(apiManagementResource);
         }
     }
 }

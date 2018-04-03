@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.Commands.ApiManagement.dll-Help.xml
 Module Name: AzureRM.ApiManagement
 ms.assetid: DBA7AD5F-CC13-417A-B753-F998942530BB
@@ -72,7 +72,7 @@ Specifies the name of API Management service.
 ```yaml
 Type: String
 Parameter Sets: GetByResource
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -87,7 +87,7 @@ Specifies the name of the resource group under in which this cmdlet gets the API
 ```yaml
 Type: String
 Parameter Sets: GetByResourceGroup, GetByResource
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
