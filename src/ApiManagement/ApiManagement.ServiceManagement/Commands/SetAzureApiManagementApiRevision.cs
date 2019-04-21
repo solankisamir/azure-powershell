@@ -69,11 +69,14 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
                     Description,
                     ServiceUrl,
                     Path,
+                    SubscriptionRequired,
                     Protocols.Distinct().ToArray(),
                     AuthorizationServerId,
                     AuthorizationScope,
                     SubscriptionKeyHeaderName,
                     SubscriptionKeyQueryParamName,
+                    OpenIdProviderId,
+                    BearerTokenSendingMethod,
                     InputObject);
 
                 if (PassThru.IsPresent)

@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.ApiManagement.ServiceManagement.dll-Help.xml
 Module Name: Az.ApiManagement
 ms.assetid: 7BCEB0EF-1A09-4CED-9F34-CE3AB03181A7
@@ -84,7 +84,7 @@ Specifies the identifier of the existing API.
 If you specify this parameter the cmdlet returns the API-scope policy.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: GetApiLevel, GetOperationLevel
 Aliases:
 
@@ -99,7 +99,7 @@ Accept wildcard characters: False
 Identifier of API Revision. This parameter is optional. If not specified, the policy will be retrieved from the currently active api revision.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: GetApiLevel, GetOperationLevel
 Aliases:
 
@@ -114,14 +114,14 @@ Accept wildcard characters: False
 Specifies an instance of **PsApiManagementContext**.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementContext
+Type: PsApiManagementContext
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -129,7 +129,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with azure.
 
 ```yaml
-Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
+Type: IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -144,7 +144,7 @@ Accept wildcard characters: False
 ps_force
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -157,10 +157,10 @@ Accept wildcard characters: False
 
 ### -Format
 Specifies the format of the API management policy.
-The default value for this parameter is "application/vnd.ms-az-apim.policy+xml".
+The default value for this parameter is "xml".
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -176,7 +176,7 @@ Specifies the identifier of the existing API operation.
 If you specify this parameter with *ApiId* the cmdlet returns operation-scope policy.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: GetOperationLevel
 Aliases:
 
@@ -192,7 +192,7 @@ Specifies the identifier of an existing product.
 If you specify this parameter the cmdlet returns the product-scope policy.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: GetProductLevel
 Aliases:
 
@@ -208,7 +208,7 @@ Specifies the file path to save the result to.
 If you do not specify this parameter the result is pipelined as a sting.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -223,7 +223,7 @@ Accept wildcard characters: False
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
 
@@ -238,7 +238,7 @@ Accept wildcard characters: False
 Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
 
@@ -250,7 +250,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
