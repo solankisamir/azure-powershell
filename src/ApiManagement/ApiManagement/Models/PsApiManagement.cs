@@ -57,15 +57,7 @@ namespace Microsoft.Azure.Commands.ApiManagement.Models
             ScmUrl = apiServiceResource.ScmUrl;
             PublicIPAddresses = apiServiceResource.PublicIPAddresses != null ? apiServiceResource.PublicIPAddresses.ToArray() : null;
             PrivateIPAddresses = apiServiceResource.PrivateIPAddresses != null ? apiServiceResource.PrivateIPAddresses.ToArray() : null;
-            var staticIPList = new List<string>();
-            if (apiServiceResource.PublicIPAddresses != null)
-            {
-                staticIPList.AddRange(apiServiceResource.PublicIPAddresses);
-            }
-            if (apiServiceResource.PrivateIPAddresses != null)
-            {
-                staticIPList.AddRange(apiServiceResource.PrivateIPAddresses);
-            }
+            EnableClientCertificate = apiServiceResource.EnableClientCertificate;
 
             VpnType = ApiManagementClient.Mapper.Map<string, PsApiManagementVpnType>(apiServiceResource.VirtualNetworkType);            
 
@@ -126,6 +118,12 @@ namespace Microsoft.Azure.Commands.ApiManagement.Models
                 SystemCertificates = systemCertificates.ToArray();
             }
 
+            // prepare the SSL settings
+            if (apiServiceResource.CustomProperties != null && apiServiceResource.CustomProperties.Any())
+            {
+                SslSettings = new PsApiManagementSslSettings(apiServiceResource.CustomProperties);
+            }
+
             if (apiServiceResource.Tags != null)
             {
                 Tags = apiServiceResource.Tags;
@@ -181,13 +179,19 @@ namespace Microsoft.Azure.Commands.ApiManagement.Models
 
         public PsApiManagementCustomHostNameConfiguration ScmCustomHostnameConfiguration { get; set; }
 
+        public PsApiManagementCustomHostNameConfiguration DeveloperPortalHostnameConfiguration { get; set; }
+
         public PsApiManagementSystemCertificate[] SystemCertificates { get; set; }
 
         public IDictionary<string, string> Tags { get; set; }
 
         public IList<PsApiManagementRegion> AdditionalRegions { get; private set; }
 
+        public PsApiManagementSslSettings SslSettings { get; private set; }
+
         public PsApiManagementServiceIdentity Identity { get; private set; }
+
+        public bool? EnableClientCertificate { get; private set; }
 
         public string ResourceGroupName
         {

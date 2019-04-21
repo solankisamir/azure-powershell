@@ -18,10 +18,13 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
     using System;
     using System.Management.Automation;
 
-    [Cmdlet("New", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "ApiManagementSubscription")]
+    [Cmdlet("New", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "ApiManagementSubscription", DefaultParameterSetName = OldSubscriptionModelSet)]
     [OutputType(typeof(PsApiManagementSubscription))]
     public class NewAzureApiManagementSubscription : AzureApiManagementCmdletBase
     {
+        private const string OldSubscriptionModelSet = "OldSubscriptionModel";
+        private const string NewSubscriptionModelSet = "NewSubscriptionModel";
+
         [Parameter(
             ValueFromPipelineByPropertyName = true,
             Mandatory = true,
@@ -44,6 +47,12 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         public String Name { get; set; }
 
         [Parameter(
+            ParameterSetName = NewSubscriptionModelSet,
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "The owner of the subscription. This parameter is optional.")]
+        [Parameter(
+            ParameterSetName = OldSubscriptionModelSet,
             ValueFromPipelineByPropertyName = true,
             Mandatory = true,
             HelpMessage = "Identifier of existing user - the subscriber. This parameter is required.")]
@@ -51,11 +60,20 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         public String UserId { get; set; }
 
         [Parameter(
+            ParameterSetName = OldSubscriptionModelSet,
             ValueFromPipelineByPropertyName = true,
             Mandatory = true,
             HelpMessage = "Identifier of existing product to subscribe to. This parameter is required.")]
         [ValidateNotNullOrEmpty]
         public String ProductId { get; set; }
+
+        [Parameter(
+            ParameterSetName = NewSubscriptionModelSet,
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = true,
+            HelpMessage = "The Scope of the Subscription, whether it is Api Scope /apis/{apiId} or Product Scope /products/{productId} or Global API Scope /apis or Global scope /. This parameter is required.")]
+        [ValidateNotNullOrEmpty]
+        public String Scope { get; set; }
 
         [Parameter(
             ValueFromPipelineByPropertyName = true,

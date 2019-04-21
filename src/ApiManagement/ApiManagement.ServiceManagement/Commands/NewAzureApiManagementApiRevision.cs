@@ -44,11 +44,37 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         [ValidateNotNullOrEmpty]
         public String ApiRevision { get; set; }
 
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api Revision Description. This parameter is optional.")]
+        public String ApiRevisionDescription { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api Revision identifier of the source API. This parameter is optional.")]
+        public String SourceApiRevision { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = true,
+            HelpMessage = "A URL of the web service exposing the API in the Backend service. This URL will be used by Azure API Management only, and will not be made public. " +
+                  "Must be 1 to 2000 characters long. This parameter is required.")]
+        [ValidateNotNullOrEmpty]
+        public String ServiceUrl { get; set; }
+
         public override void ExecuteApiManagementCmdlet()
         {
             if (ShouldProcess(ApiRevision, Resources.CreateApiRevision))
             {
-                var newApi = Client.ApiCreateRevision(Context, ApiId, ApiRevision);
+                var newApi = Client.ApiCreateRevision(
+                    Context,
+                    ApiId,
+                    ApiRevision,
+                    ApiId,
+                    SourceApiRevision,
+                    ServiceUrl);
                 WriteObject(newApi);
             }
         }

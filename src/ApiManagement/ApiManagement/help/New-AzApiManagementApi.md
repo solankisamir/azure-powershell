@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.ApiManagement.ServiceManagement.dll-Help.xml
 Module Name: Az.ApiManagement
 ms.assetid: 664CF009-FC52-4F1B-933B-3DEBD05AC8C5
@@ -17,8 +17,9 @@ Creates an API.
 New-AzApiManagementApi -Context <PsApiManagementContext> [-ApiId <String>] -Name <String>
  [-Description <String>] -ServiceUrl <String> -Path <String> -Protocols <PsApiManagementSchema[]>
  [-AuthorizationServerId <String>] [-AuthorizationScope <String>] [-SubscriptionKeyHeaderName <String>]
- [-SubscriptionKeyQueryParamName <String>] [-ProductIds <String[]>] [-DefaultProfile <IAzureContextContainer>]
- [<CommonParameters>]
+ [-SubscriptionKeyQueryParamName <String>] [-ProductIds <String[]>] [-SubscriptionRequired]
+ [-ApiVersionDescription <String>] [-ApiVersionSetId <String>] [-ApiVersion <String>] [-SourceApiId <String>]
+ [-SourceApiRevision <String>] [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,6 +35,15 @@ PS C:\>New-AzApiManagementApi -Context $ApiMgmtContext -Name "Echo api" -Service
 
 This command creates an API named EchoApi with the specified URL.
 
+### Example 1: Create an API by copying all operation Tags and Policies from echo-api and into an ApiVersionSet
+```powershell
+PS C:\>$ApiMgmtContext = New-AzApiManagementContext -ResourceGroupName "Api-Default-WestUS" -ServiceName "contoso"
+PS C:\>$versionSet = Get-AzApiManagementApiVersionSet -Context $context -ApiVersionSetId "xmsVersionSet"
+PS C:\>New-AzApiManagementApi -Context $context -Name "echoapiv3" -Description "Create Echo Api V3" -SubscriptionRequired -ServiceUrl "https://echoapi.cloudapp.net/v3" -Path "echov3" -Protocols @("http", "https") -ApiVersionSetId $versionSet.ApiVersionSetId -SourceApiId "echo-api" -ApiVersion "v3"
+```
+
+This command creates an API `echoapiv3` in ApiVersionSet `xmsVersionSet` and copies all operation, Tags and Policies from source Api `echo-api`. It overrides the SubscriptionRequired, ServiceUrl, Path, Protocols
+
 ## PARAMETERS
 
 ### -ApiId
@@ -41,7 +51,52 @@ Specifies the ID of the API to create.
 If you do not specify this parameter, this cmdlet generates an ID for you.
 
 ```yaml
-Type: System.String
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ApiVersion
+Api Version of the Api to create. This parameter is optional.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ApiVersionDescription
+Api Version Description. This parameter is optional.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ApiVersionSetId
+A resource identifier for the related Api Version Set. This parameter is optional.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -57,7 +112,7 @@ Specifies the OAuth operations scope.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -74,7 +129,7 @@ The default value is $Null.
 You must specify this parameter if *AuthorizationScope* is specified.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -89,7 +144,7 @@ Accept wildcard characters: False
 Specifies a **PsApiManagementContext** object.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementContext
+Type: PsApiManagementContext
 Parameter Sets: (All)
 Aliases:
 
@@ -104,7 +159,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with azure.
 
 ```yaml
-Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
+Type: IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -119,7 +174,7 @@ Accept wildcard characters: False
 Specifies a description for the web API.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -135,7 +190,7 @@ Specifies the name of the web API.
 This is the public name of the API as it appears on the developer and admin portals.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -152,7 +207,7 @@ This URL is used by API consumers to send requests to the web service, and must 
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -167,7 +222,7 @@ Accept wildcard characters: False
 Specifies an array of product IDs to which to add the new API.
 
 ```yaml
-Type: System.String[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -185,7 +240,7 @@ These are the web protocols over which the API is made available.
 The default value is $Null.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementSchema[]
+Type: PsApiManagementSchema[]
 Parameter Sets: (All)
 Aliases:
 Accepted values: Http, Https
@@ -203,11 +258,41 @@ This URL is used only by Azure API Management, and is not made public.
 The URL must be one to 2000 characters long.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SourceApiId
+Api identifier of the source API. This parameter is optional.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SourceApiRevision
+Api Revision of the source API. This parameter is optional.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
@@ -219,7 +304,7 @@ Specifies the subscription key header name.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -235,7 +320,22 @@ Specifies the subscription key query string parameter name.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SubscriptionRequired
+Flag to enforce SubscriptionRequired for requests to the Api. This parameter is optional.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -247,7 +347,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

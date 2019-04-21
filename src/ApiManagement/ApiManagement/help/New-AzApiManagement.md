@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.ApiManagement.dll-Help.xml
 Module Name: Az.ApiManagement
 ms.assetid: 164C5205-01BA-47BB-B780-D0B9AE614A4B
@@ -20,8 +20,9 @@ New-AzApiManagement -ResourceGroupName <String> -Name <String> -Location <String
  [-Tag <System.Collections.Generic.Dictionary`2[System.String,System.String]>]
  [-AdditionalRegions <PsApiManagementRegion[]>]
  [-CustomHostnameConfiguration <PsApiManagementCustomHostNameConfiguration[]>]
- [-SystemCertificateConfiguration <PsApiManagementSystemCertificate[]>] [-AssignIdentity]
- [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
+ [-SystemCertificateConfiguration <PsApiManagementSystemCertificate[]>]
+ [-SslSettings <PsApiManagementSslSettings>] [-AssignIdentity] [-DefaultProfile <IAzureContextContainer>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -62,13 +63,53 @@ PS C:\> New-AzApiManagement -ResourceGroupName "ContosoGroup" -Location "West US
 
 This command creates a Premium-tier API Management service in an Azure virtual network subnet having an internal-facing gateway endpoint with a master region in the West US.
 
+### Example 5: Create an API Management service and Enable TLS 1.0 protocol
+```powershell
+PS C:\> $enableTls=@{"Tls10" = "True"}
+PS C:\> $sslSetting = New-AzApiManagementSslSetting -FrontendProtocols $enableTls -BackendProtocols $enableTls
+PS C:\> New-AzApiManagement -ResourceGroupName Api-Default-CentralUS -Name "testtlspowershell" -Sku Standard -Location "CentralUS" -Organization "Microsoft" -AdminEmail "bar@contoso.com" -SslSettings $sslSetting
+
+PublicIPAddresses                     : {23.99.140.18}
+PrivateIPAddresses                    :
+Id                                    : /subscriptions/subid/resourceGroups/Api-Default-CentralUS/providers/Microsoft.ApiManagement/service/testtlspowershell
+Name                                  : testtlspowershell
+Location                              : Central US
+Sku                                   : Standard
+Capacity                              : 1
+ProvisioningState                     : Succeeded
+RuntimeUrl                            : https://testtlspowershell.azure-api.net
+RuntimeRegionalUrl                    : https://testtlspowershell-centralus-01.regional.azure-api.net
+PortalUrl                             : https://testtlspowershell.portal.azure-api.net
+ManagementApiUrl                      : https://testtlspowershell.management.azure-api.net
+ScmUrl                                : https://testtlspowershell.scm.azure-api.net
+PublisherEmail                        : bar@contoso.com
+OrganizationName                      : Microsoft
+NotificationSenderEmail               : apimgmt-noreply@mail.windowsazure.com
+VirtualNetwork                        :
+VpnType                               : None
+PortalCustomHostnameConfiguration     :
+ProxyCustomHostnameConfiguration      : {testtlspowershell.azure-api.net}
+ManagementCustomHostnameConfiguration :
+ScmCustomHostnameConfiguration        :
+DeveloperPortalHostnameConfiguration  :
+SystemCertificates                    :
+Tags                                  : {}
+AdditionalRegions                     : {}
+SslSettings                           : Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementSslSettings
+Identity                              :
+EnableClientCertificate               :
+ResourceGroupName                     : Api-Default-CentralUS
+```
+
+This command creates a Standar SKU Api Management service and Enable TLS 1.0 on Frontend client to ApiManagement Gateway and Backend client between ApiManagement Gateway and Backend.
+
 ## PARAMETERS
 
 ### -AdditionalRegions
 Additional deployment regions of Azure API Management.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementRegion[]
+Type: PsApiManagementRegion[]
 Parameter Sets: (All)
 Aliases:
 
@@ -83,7 +124,7 @@ Accept wildcard characters: False
 Specifies the originating email address for all notifications that the API Management system sends.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -98,7 +139,7 @@ Accept wildcard characters: False
 Generate and assign an Azure Active Directory Identity for this server for use with key management services like Azure KeyVault.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -114,7 +155,7 @@ Specifies the SKU capacity of the Azure API Management service.
 The default is one (1).
 
 ```yaml
-Type: System.Nullable`1[System.Int32]
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
@@ -129,7 +170,7 @@ Accept wildcard characters: False
 Custom hostname configurations. Default value is $null. Passing $null will set the default hostname.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementCustomHostNameConfiguration[]
+Type: PsApiManagementCustomHostNameConfiguration[]
 Parameter Sets: (All)
 Aliases:
 
@@ -144,7 +185,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with azure.
 
 ```yaml
-Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
+Type: IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -161,7 +202,7 @@ To obtain valid locations, use the cmdlet
 Get-AzResourceProvider -ProviderNamespace "Microsoft.ApiManagement" | where {$_.ResourceTypes[0].ResourceTypeName -eq "service"} | Select-Object Locations
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -176,7 +217,7 @@ Accept wildcard characters: False
 Specifies a name for the API Management deployment.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -192,7 +233,7 @@ Specifies the name of an organization.
 API Management uses this address in the developer portal in email notifications.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -207,7 +248,7 @@ Accept wildcard characters: False
 Specifies the name of the of resource group under which this cmdlet creates an API Management deployment.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -227,10 +268,25 @@ Valid values are:
 The default is Developer.
 
 ```yaml
-Type: System.Nullable`1[Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementSku]
+Type: PsApiManagementSku
 Parameter Sets: (All)
 Aliases:
 Accepted values: Developer, Basic, Standard, Premium
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SslSettings
+The Ssl Setting of the ApiManagement Service. Default value is $null
+
+```yaml
+Type: PsApiManagementSslSettings
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named
@@ -243,7 +299,7 @@ Accept wildcard characters: False
 Certificates issued by Internal CA to be installed on the service. Default value is $null.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementSystemCertificate[]
+Type: PsApiManagementSystemCertificate[]
 Parameter Sets: (All)
 Aliases:
 
@@ -273,7 +329,7 @@ Accept wildcard characters: False
 Virtual Network Configuration of master Azure API Management deployment region.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementVirtualNetwork
+Type: PsApiManagementVirtualNetwork
 Parameter Sets: (All)
 Aliases:
 
@@ -291,7 +347,7 @@ Virtual Network Type of the ApiManagement Deployment. Valid Values are
 - "Internal" (ApiManagement Deployment is setup inside a Virtual Network having an Intranet Facing Endpoint)
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.Models.PsApiManagementVpnType
+Type: PsApiManagementVpnType
 Parameter Sets: (All)
 Aliases:
 Accepted values: None, External, Internal
@@ -304,7 +360,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

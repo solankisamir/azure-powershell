@@ -57,6 +57,36 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         [Parameter(
             ValueFromPipelineByPropertyName = true,
             Mandatory = false,
+            HelpMessage = "OpenID Connect discovery endpoint hostname for AAD or AAD B2C. This parameter is optional.")]
+        public String Authority { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Signup Policy Name. Only applies to AAD B2C Identity Provider. This parameter is optional.")]
+        public String SignupPolicyName { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Signin Policy Name. Only applies to AAD B2C Identity Provider. This parameter is optional.")]
+        public String SigninPolicyName { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Profile Editing Policy Name. Only applies to AAD B2C Identity Provider. This parameter is optional.")]
+        public String ProfileEditingPolicyName { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Password Reset Policy Name. Only applies to AAD B2C Identity Provider. This parameter is optional.")]
+        public String PasswordResetPolicyName { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
             HelpMessage = "If specified then instance of " +
                           "Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementIdentityProvider type " +
                           "representing the modified identity provider.")]
@@ -66,7 +96,17 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
         {
             if (ShouldProcess(Type.ToString("G"), "Set Identity Provider"))
             {
-                Client.IdentityProviderSet(Context, Type.ToString("g"), ClientId, ClientSecret, AllowedTenants);
+                Client.IdentityProviderSet(
+                    Context, 
+                    Type.ToString("g"),
+                    ClientId,
+                    ClientSecret, 
+                    AllowedTenants,
+                    Authority,
+                    SigninPolicyName,
+                    SignupPolicyName,
+                    PasswordResetPolicyName,
+                    ProfileEditingPolicyName);
 
                 if (PassThru)
                 {

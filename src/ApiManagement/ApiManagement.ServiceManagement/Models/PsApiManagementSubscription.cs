@@ -22,7 +22,11 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models
 
         public string UserId { get; set; }
 
+        public string OwnerId { get; set; }
+
         public string ProductId { get; set; }
+
+        public string Scope { get; set; }
 
         public string Name { get; set; }
 

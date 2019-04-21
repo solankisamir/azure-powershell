@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.ApiManagement.ServiceManagement.dll-Help.xml
 Module Name: Az.ApiManagement
 ms.assetid: 29CCF141-CC2F-4E11-8235-64025CFB5782
@@ -46,7 +46,7 @@ PS C:\>Set-AzApiManagementApi -Context $ApiMgmtContext -Name "EchoApi" -ServiceU
 Specifies the ID of the API to modify.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: ExpandedParameter
 Aliases:
 
@@ -62,7 +62,7 @@ Specifies the OAuth operations scope.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -79,7 +79,7 @@ The default value is $Null.
 You must specify this parameter if *AuthorizationScope* is specified.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 Specifies a **PsApiManagementContext** object.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementContext
+Type: PsApiManagementContext
 Parameter Sets: ExpandedParameter
 Aliases:
 
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with azure.
 
 ```yaml
-Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
+Type: IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -124,7 +124,7 @@ Accept wildcard characters: False
 Specifies a description for the web API.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -139,7 +139,7 @@ Accept wildcard characters: False
 Instance of PsApiManagementApi. This parameter is required.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementApi
+Type: PsApiManagementApi
 Parameter Sets: ByInputObject
 Aliases:
 
@@ -154,7 +154,7 @@ Accept wildcard characters: False
 Specifies the name of the web API.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -169,7 +169,7 @@ Accept wildcard characters: False
 passthru
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -186,7 +186,7 @@ This URL is used by API consumers to send requests to the web service, and must 
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -204,7 +204,7 @@ These are the web protocols over which the API is made available.
 The default value is $Null.
 
 ```yaml
-Type: Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models.PsApiManagementSchema[]
+Type: PsApiManagementSchema[]
 Parameter Sets: (All)
 Aliases:
 Accepted values: Http, Https
@@ -222,7 +222,7 @@ This URL is used only by Azure API Management, and is not made public.
 The URL must be one to 2000 characters long.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -238,7 +238,7 @@ Specifies the name of the subscription key header.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -254,7 +254,7 @@ Specifies the name of the subscription key query string parameter.
 The default value is $Null.
 
 ```yaml
-Type: System.String
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -266,7 +266,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

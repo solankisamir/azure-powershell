@@ -62,8 +62,8 @@ namespace Microsoft.Azure.Commands.ApiManagement.Commands
         [Parameter(
             ValueFromPipelineByPropertyName = true,
             Mandatory = false,
-            HelpMessage = "The tier of the Azure API Management service. Valid values are Developer, Basic, Standard and Premium . Default value is Developer")]
-        [ValidateSet("Developer", "Basic", "Standard", "Premium"), PSDefaultValue(Value = "Developer")]
+            HelpMessage = "The tier of the Azure API Management service. Valid values are Developer, Consumption, Basic, Standard and Premium . Default value is Developer")]
+        [ValidateSet("Developer", "Basic", "Standard", "Premium", "Consumption"), PSDefaultValue(Value = "Developer")]
         public PsApiManagementSku? Sku { get; set; }
 
         [Parameter(
@@ -112,6 +112,12 @@ namespace Microsoft.Azure.Commands.ApiManagement.Commands
             Mandatory = false,
             HelpMessage = "Certificates issued by Internal CA to be installed on the service. Default value is $null.")]
         public PsApiManagementSystemCertificate[] SystemCertificateConfiguration { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "The Ssl Setting of the ApiManagement Service. Default value is $null")]
+        public PsApiManagementSslSettings SslSettings { get; set; }
 
         [Parameter(Mandatory = false,
             HelpMessage = "Generate and assign an Azure Active Directory Identity for this server for use with key management services like Azure KeyVault.")]

@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,24 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing Diagnostic &quot;{0}&quot; from Api &quot;{1}&quot;..
+        /// </summary>
+        internal static string ApiDiagnosticRemoveDescription {
+            get {
+                return ResourceManager.GetString("ApiDiagnosticRemoveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove Diagnostic &quot;{0}&quot; from Api &quot;{1}&quot; ?.
+        /// </summary>
+        internal static string ApiDiagnosticRemoveWarning {
+            get {
+                return ResourceManager.GetString("ApiDiagnosticRemoveWarning", resourceCulture);
             }
         }
         
@@ -187,6 +205,24 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing Cache &quot;{0}&quot;.
+        /// </summary>
+        internal static string CacheRemoveDescription {
+            get {
+                return ResourceManager.GetString("CacheRemoveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove Cache &quot;{0}&quot; ? .
+        /// </summary>
+        internal static string CacheRemoveWarning {
+            get {
+                return ResourceManager.GetString("CacheRemoveWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing Certificate &quot;{0}&quot;..
         /// </summary>
         internal static string CertificateRemoveDescription {
@@ -237,6 +273,33 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Properties {
         internal static string CreateBackend {
             get {
                 return ResourceManager.GetString("CreateBackend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating Cache.
+        /// </summary>
+        internal static string CreateCache {
+            get {
+                return ResourceManager.GetString("CreateCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing Diagnostic &quot;{0}&quot;..
+        /// </summary>
+        internal static string DiagnosticRemoveDescription {
+            get {
+                return ResourceManager.GetString("DiagnosticRemoveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove Diagnostic &quot;{0}&quot;?.
+        /// </summary>
+        internal static string DiagnosticRemoveWarning {
+            get {
+                return ResourceManager.GetString("DiagnosticRemoveWarning", resourceCulture);
             }
         }
         
@@ -462,6 +525,15 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Properties {
         internal static string SetBackend {
             get {
                 return ResourceManager.GetString("SetBackend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Cache.
+        /// </summary>
+        internal static string SetCache {
+            get {
+                return ResourceManager.GetString("SetCache", resourceCulture);
             }
         }
         

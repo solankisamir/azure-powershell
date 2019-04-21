@@ -104,6 +104,42 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
             HelpMessage = "Array of products IDs to add the new API to. This parameter is optional.")]
         public String[] ProductIds { get; set; }
 
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Flag to enforce SubscriptionRequired for requests to the Api. This parameter is optional.")]
+        public SwitchParameter SubscriptionRequired { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api Version Description. This parameter is optional.")]
+        public String ApiVersionDescription { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "A resource identifier for the related Api Version Set. This parameter is optional.")]
+        public String ApiVersionSetId { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api Version of the Api to create. This parameter is optional.")]        
+        public String ApiVersion { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api identifier of the source API. This parameter is optional.")]
+        public String SourceApiId { get; set; }
+
+        [Parameter(
+            ValueFromPipelineByPropertyName = true,
+            Mandatory = false,
+            HelpMessage = "Api Revision of the source API. This parameter is optional.")]
+        public String SourceApiRevision { get; set; }
+
         public override void ExecuteApiManagementCmdlet()
         {
             string id = ApiId ?? Guid.NewGuid().ToString("N");
@@ -115,6 +151,12 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Commands
                 Description,
                 ServiceUrl,
                 Path,
+                SourceApiId,
+                SourceApiRevision,
+                SubscriptionRequired,
+                ApiVersionDescription,
+                ApiVersionSetId,
+                ApiVersion,
                 Protocols.Distinct().ToArray(),
                 AuthorizationServerId,
                 AuthorizationScope,

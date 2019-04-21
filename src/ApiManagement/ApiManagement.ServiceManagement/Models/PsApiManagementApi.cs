@@ -49,5 +49,13 @@ namespace Microsoft.Azure.Commands.ApiManagement.ServiceManagement.Models
         public bool IsCurrent { get; set;  }
 
         public bool IsOnline { get; set; }
+
+        public bool? SubscriptionRequired { get; set; }
+
+        public string ApiRevisionDescription { get; set; }
+
+        public string ApiVersionSetDescription { get; set; }
+
+        public string ApiVersionSetId { get; set; }
     }
 }
