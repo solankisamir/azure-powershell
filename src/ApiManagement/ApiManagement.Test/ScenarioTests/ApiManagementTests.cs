@@ -37,6 +37,16 @@ namespace Microsoft.Azure.Commands.ApiManagement.Test.ScenarioTests
 
         public ApiManagementTests(Xunit.Abstractions.ITestOutputHelper output)
         {
+            Environment.SetEnvironmentVariable("AZURE_TEST_MODE", "Record");
+
+            Environment.SetEnvironmentVariable(
+"TEST_CSM_ORGID_AUTHENTICATION", "SubscriptionId=a200340d-6b82-494d-9dbf-687ba6e33f9e;Environment=Prod;ServicePrincipal=c01e8df8-1cb8-47a9-9931-887b594b1332;ServicePrincipalSecret=OG/oI5zk1GYopvdXlCnz294hNwIvLRNxIOYqE3yJ3Cw=;AADTenant=72f988bf-86f1-41af-91ab-2d7cd011db47");
+
+            Environment.SetEnvironmentVariable(
+                "TEST_ORGID_AUTHENTICATION",
+                "SubscriptionId=a200340d-6b82-494d-9dbf-687ba6e33f9e;Environment=Prod");
+
+
             _helper = new EnvironmentSetupHelper
             {
                 TracingInterceptor = new XunitTracingInterceptor(output)
